@@ -2,6 +2,7 @@
 // TODO: Replace HTML text GUI with something better
 // TODO: toggle for music
 // TODO: Better audio implementation
+// TODO: Don't stretch background
 
 window.mobileAndTabletcheck = function () {
   var check = false;
