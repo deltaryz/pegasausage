@@ -486,6 +486,7 @@ generateSprites();
 
 // init renderer
 var renderer = new THREE.WebGLRenderer();
+renderer.setPixelRatio(window.devicePixelRatio); // This makes textures render at full res
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
