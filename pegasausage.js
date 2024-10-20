@@ -1,8 +1,9 @@
 // TODO: Comment the fuck out of everything
-// TODO: Replace HTML text GUI with something better
-// TODO: toggle for music
 // TODO: Better audio implementation
-// TODO: Don't stretch background
+
+// This is an old project originally made in 2015
+// Oh my god this code is so shit
+// I've improved and polished some things, and fixed some bugs, but it's mostly still awful.
 
 window.mobileAndTabletcheck = function () {
   var check = false;
