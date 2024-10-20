@@ -274,7 +274,10 @@ function onDocumentMouseUp(event) {
 }
 
 // init background scene
-var bgImg = new THREE.TextureLoader().load("bg.png");
+var bgImg = new THREE.TextureLoader().load("bg.png", function () {
+  resizeBackground();
+});
+
 var bg = new THREE.Mesh(
   new THREE.PlaneGeometry(2, 2, 0),
   new THREE.MeshBasicMaterial({ map: bgImg })
@@ -299,6 +302,31 @@ var camera = new THREE.PerspectiveCamera(
 );
 Player.add(camera);
 scene.add(Player);
+
+// Function to resize the background
+function resizeBackground() {
+  var windowAspect = window.innerWidth / window.innerHeight;
+  var imgAspect = bgImg.image.width / bgImg.image.height;
+
+  // Scale the background to fill the entire viewport, maintaining aspect ratio
+  if (windowAspect > imgAspect) {
+    // Window is wider than the image: scale based on width (cropping height)
+    bg.scale.set(1, windowAspect / imgAspect, 1);
+  } else {
+    // Window is taller than the image: scale based on height (cropping width)
+    bg.scale.set(imgAspect / windowAspect, 1, 1);
+  }
+}
+
+// Handle resizing the background on window resize
+window.addEventListener("resize", function () {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  console.log("Resize");
+
+  resizeBackground(); // Adjust background scale
+});
 
 var charImg = new THREE.TextureLoader().load("char.png");
 var char = new THREE.Mesh(
@@ -326,6 +354,8 @@ var tpLogo = new THREE.Mesh(
   new THREE.PlaneGeometry(5, 1.3),
   new THREE.MeshBasicMaterial({ map: tpLogoImg })
 );
+
+tpLogo.visible = false;
 
 var psLogo = new THREE.Mesh(
   new THREE.PlaneGeometry(12, 2.5),
@@ -361,6 +391,8 @@ var pvfmText = document.createElement("div");
 pvfmText.style.position = "absolute";
 pvfmText.style.top = window.innerHeight - 50 + "px";
 pvfmText.style.left = 20 + "px";
+
+// Make text smaller if there's an override for that
 if (textSize != undefined) {
   pvfmText.style.fontSize = textSize + "pt";
 }
@@ -373,20 +405,20 @@ text2.style.textAlign = "center";
 text2.innerHTML = "HP: " + hp + "<br/>Distance: " + Math.floor(distance);
 text2.style.top = 20 + "px";
 text2.style.left = window.innerWidth / 2 - text2.offsetWidth / 2 + "px";
+
 if (textSize != undefined) {
   text2.style.fontSize = textSize + "pt";
 }
+
 document.body.appendChild(text2);
 
 var credits = document.createElement("div");
 credits.className = "credits";
-credits.style.position = "absolute";
-credits.style.textAlign = "center";
-credits.innerHTML = "";
+
 if (textSize != undefined) {
   credits.style.fontSize = textSize + "pt";
-  credits.style.textAlign = "left";
 }
+
 document.body.appendChild(credits);
 
 // Credits on title screen
@@ -505,7 +537,6 @@ function resetGame() {
   camera.position.set(0, 0, 0);
   char.position.set(0, 0, -0.8);
   char.lookAt(poo);
-  credits.innerHTML = "";
   pvfmText.innerHTML = "";
   crosshair.style.visibility = "visible";
   lbThing = false;
@@ -559,7 +590,7 @@ function render() {
   }
 
   if (hp <= 0) {
-    tpLogo.visible = true;
+    tpLogo.visible = false;
     credits.hidden = false;
     gameState = 0;
   }
@@ -803,13 +834,7 @@ function render() {
 
     credits.innerHTML = creditsText;
     credits.style.top = window.innerHeight - credits.offsetHeight - 10 + "px";
-
-    if (!touchInput) {
-      credits.style.left =
-        window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
-    } else {
-      credits.style.left = 20 + "px";
-    }
+    credits.style.left = window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
   } else {
     startBtn.visible = true;
     diffBtn.visible = true;
@@ -833,12 +858,7 @@ function render() {
 
     credits.innerHTML = creditsText;
     credits.style.top = window.innerHeight - credits.offsetHeight - 10 + "px";
-    if (!touchInput) {
-      credits.style.left =
-        window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
-    } else {
-      credits.style.left = 20 + "px";
-    }
+    credits.style.left = window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
 
     if (input.isDown("T")) {
       keyDown = true;
