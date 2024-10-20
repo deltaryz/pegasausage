@@ -391,7 +391,7 @@ char.position.set(0, 0, -0.8);
 char.visible = false;
 var poo = new THREE.Vector3(
   camera.position.x,
-  camera.position.y + 1,
+  camera.position.y + 0.3,
   camera.position.z
 );
 char.lookAt(poo);
