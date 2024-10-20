@@ -49,20 +49,23 @@
 			font-size: 20px;
 		}
 
-		.credits {
+		#muteButton {
+			font-size: 14px;
+		}
+
+		#credits {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			z-index: 9999;
 			padding-top: 15px;
 			padding-bottom: 15px;
-			padding-left: 20px;
-			padding-right: 20px;
-			border-radius: 15px;
 			color: white;
 			background-color: rgba(0, 0, 0, 0.7);
+			text-align: center;
 
 			line-height: 250%;
 			font-size: 14px;
-
-			position: absolute;
-			text-align: center;
 		}
 
 		#hp {
@@ -97,6 +100,18 @@
 
 	<div id="hp">
 		Testing
+	</div>
+
+	<div id="credits" hidden>
+		Programming: <a href='https://deltaryz.com'>∆•RYZ</a>
+		<br />Background: <a href='http://goblinengineer.deviantart.com/'>GoblinEngineer</a>
+		<br />Music: <a href='https://deltaryz.bandcamp.com/track/bestest-friends'>∆•RYZ & Layl - Bestest
+			Friends</a>
+
+		<br />
+
+		<!-- Mute button -->
+		<button id="muteButton">MUSIC ON</button>
 	</div>
 
 	<script src="three.min.js"></script>

@@ -32,7 +32,7 @@ for (var i = 0; i < audioElements.length; i++) {
 
 if (window.mobileAndTabletcheck()) {
   touchInput = true;
-  textSize = 8;
+  textSize = 12;
   window.addEventListener("keydown", removeBehaviorsRestrictions);
   window.addEventListener("mousedown", removeBehaviorsRestrictions);
   window.addEventListener("touchstart", removeBehaviorsRestrictions);
@@ -113,6 +113,20 @@ var audio = document.getElementById("audio");
 // audio.play(); Don't autoplay that
 var hit = document.getElementById("hit");
 var eat = document.getElementById("eat");
+
+// Register mute buton
+let muteButton = document.getElementById("muteButton");
+muteButton.onclick = function (event) {
+  if (muteButton.innerHTML == "MUSIC ON") {
+    // Music is on, turn it off
+    muteButton.innerHTML = "MUSIC OFF";
+    audio.muted = true;
+  } else {
+    // Music is off, turn it on
+    muteButton.innerHTML = "MUSIC ON";
+    audio.muted = false;
+  }
+};
 
 var hpDiv = document.getElementById("hp");
 hpDiv.hidden = true;
@@ -415,15 +429,12 @@ if (textSize != undefined) {
 
 document.body.appendChild(text2);
 
-var credits = document.createElement("div");
-credits.className = "credits";
+var credits = document.getElementById("credits");
+credits.hidden = false;
 
 if (textSize != undefined) {
   credits.style.fontSize = textSize + "pt";
 }
-
-document.body.appendChild(credits);
-
 // Credits on title screen
 var creditsText =
   "Programming: <a href='https://deltaryz.com'>∆•RYZ</a>" +
@@ -843,9 +854,9 @@ function render() {
       resetGame();
     }
 
-    credits.innerHTML = creditsText;
-    credits.style.top = window.innerHeight - credits.offsetHeight - 10 + "px";
-    credits.style.left = window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
+    // credits.innerHTML = creditsText;
+    // credits.style.top = window.innerHeight - credits.offsetHeight - 10 + "px";
+    // credits.style.left = window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
   } else {
     startBtn.visible = true;
     diffBtn.visible = true;
@@ -867,9 +878,9 @@ function render() {
 
     pvfmText.innerHTML = "";
 
-    credits.innerHTML = creditsText;
-    credits.style.top = window.innerHeight - credits.offsetHeight - 10 + "px";
-    credits.style.left = window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
+    // credits.innerHTML = creditsText;
+    // credits.style.top = window.innerHeight - credits.offsetHeight - 10 + "px";
+    // credits.style.left = window.innerWidth / 2 - credits.offsetWidth / 2 + "px";
 
     if (input.isDown("T")) {
       keyDown = true;
