@@ -20,6 +20,40 @@ window.mobileAndTabletcheck = function () {
   return check;
 };
 
+// No scrolling or zooming
+function disableScrollAndZoom() {
+  document.body.style.overflow = "hidden";
+
+  // Add touch listeners to prevent zoom and scroll
+  document.addEventListener("touchstart", preventZoom, { passive: false });
+  document.addEventListener("touchmove", preventScroll, { passive: false });
+  document.addEventListener("wheel", preventZoom, { passive: false });
+}
+
+// No zooming
+function preventZoom(e) {
+  if (e.touches != undefined) {
+    if (e.touches.length > 1) {
+      e.preventDefault();
+    }
+  }
+}
+
+// Prevent scroll only outside of slider elements
+function preventScroll(e) {
+  const isSlider = e.target.closest(".slider");
+  if (!isSlider) {
+    e.preventDefault();
+  }
+}
+
+// Run the function on page load and resize
+window.addEventListener("resize", disableScrollAndZoom);
+
+window.onload = () => {
+  disableScrollAndZoom();
+};
+
 var textSize;
 var touchInput = false;
 
