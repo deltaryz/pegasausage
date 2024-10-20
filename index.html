@@ -19,6 +19,10 @@
 			user-select: none;
 
 			cursor: default;
+
+			margin: 0;
+			padding: 0;
+			height: 100%;
 		}
 
 		canvas {
@@ -60,6 +64,21 @@
 			position: absolute;
 			text-align: center;
 		}
+
+		#hp {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			text-align: center;
+			font-size: 18px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			pointer-events: none;
+			/* Ensures it doesn't interfere with clicks */
+			z-index: 9999;
+			/* Keeps it above other elements */
+			/* background-color: rgba(255, 255, 255, 0.2); */
+		}
 	</style>
 	<link rel="shortcut icon" href="favicon.ico" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -75,9 +94,13 @@
 	<audio id="eat">
 		<source src="eat.m4a" type="audio/mp4" />
 	</audio>
+
+	<div id="hp">
+		Testing
+	</div>
+
 	<script src="three.min.js"></script>
 	<script src="pegasausage.js"></script>
-
 </body>
 
 </html>

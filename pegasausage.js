@@ -114,6 +114,9 @@ var audio = document.getElementById("audio");
 var hit = document.getElementById("hit");
 var eat = document.getElementById("eat");
 
+var hpDiv = document.getElementById("hp");
+hpDiv.hidden = true;
+
 document.body.addEventListener(
   "touchmove",
   function (event) {
@@ -542,6 +545,8 @@ function resetGame() {
   crosshair.style.visibility = "visible";
   lbThing = false;
 
+  hpDiv.hidden = false;
+
   // TODO: Mute audio
   audio.play();
 }
@@ -592,6 +597,7 @@ function render() {
 
   if (hp <= 0) {
     tpLogo.visible = false;
+    hpDiv.hidden = true;
     credits.hidden = false;
     gameState = 0;
   }
@@ -755,7 +761,11 @@ function render() {
         camera.position.z = getRandomArbitrary(0, 0.5);
       }
     }
-    text2.innerHTML = hp + " HP<br>Distance: " + Math.floor(distance);
+
+    let hpText = hp + " HP<br>Distance: " + Math.floor(distance);
+
+    text2.innerHTML = "";
+    hpDiv.innerHTML = hpText;
   } else if (gameState == 0) {
     // Reset game to nothing
 
